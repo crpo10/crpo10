@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'custom_button.dart';
 import 'hover_widget.dart';
@@ -56,6 +58,7 @@ class Footer extends StatelessWidget {
               OnHover(
                 builder: (value) {
                   final color = value ? Colors.white : Colors.white70;
+                  // Cambiar estructura de boton, TODO debe lanzar la función
 
                   return Row(
                     children: [
@@ -69,7 +72,12 @@ class Footer extends StatelessWidget {
                       CustomButton(
                         text: 'GitHub',
                         color: color,
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (!await launchUrlString(
+                              'https://github.com/crpo10')) {
+                            throw 'No se pudo abrir este link';
+                          }
+                        },
                       )
                     ],
                   );

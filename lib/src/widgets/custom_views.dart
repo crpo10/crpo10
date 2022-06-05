@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webportfolio/src/utils/proyects_list.dart';
 import '../utils/scroll_behavior.dart';
 
 class CustomPageViews extends StatelessWidget {
@@ -17,22 +18,36 @@ class CustomPageViews extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         controller: _controller,
-        itemCount: 5,
+        itemCount: projects.length,
         itemBuilder: (BuildContext context, int index) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Padding(
-                padding: EdgeInsets.all(30.0),
-                child: Icon(
-                  Icons.abc,
-                  size: 500,
-                ),
+                padding: const EdgeInsets.all(30.0),
+                child: Image.asset(projects[index].imageName),
               ),
               SizedBox(
-                width: 300,
-                child: Text(
-                    'Excepteur proident consectetur id occaecat id ea enim tempor non pariatur id sunt occaecat mollit. Velit ea consectetur aliquip nostrud minim in qui ex velit est deserunt. Voluptate fugiat aute veniam cillum et ea. Nisi ea tempor nulla enim occaecat cupidatat. Laboris ea aliquip proident ex laborum qui nulla aliquip. Ullamco non veniam mollit duis do deserunt sit.'),
+                width: 400,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        projects[index].name,
+                        style: const TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Text(
+                      projects[index].description,
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
               ),
             ],
           );
