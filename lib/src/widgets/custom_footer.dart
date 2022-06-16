@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../providers/ui_provider.dart';
 import 'custom_button.dart';
 import 'hover_widget.dart';
 
@@ -14,6 +15,7 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final uiService = Provider.of<UiProvider>(context);
 
     return SizedBox(
       child: Padding(
@@ -29,29 +31,9 @@ class Footer extends StatelessWidget {
                   return CustomButton(
                     text: 'rafaeljose3020@gmail.com',
                     color: color,
-                    onPressed: () {},
-                  );
-                },
-              ),
-              OnHover(
-                builder: (value) {
-                  final color = value ? Colors.white : Colors.white70;
-
-                  return Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FaIcon(
-                          FontAwesomeIcons.twitter,
-                          color: color,
-                        ),
-                      ),
-                      CustomButton(
-                        text: 'Twitter',
-                        color: color,
-                        onPressed: () {},
-                      )
-                    ],
+                    onPressed: () {
+                      uiService.setPageSeleted = 2;
+                    },
                   );
                 },
               ),
@@ -60,48 +42,87 @@ class Footer extends StatelessWidget {
                   final color = value ? Colors.white : Colors.white70;
                   // Cambiar estructura de boton, TODO debe lanzar la función
 
-                  return Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FaIcon(
-                          FontAwesomeIcons.github,
-                          color: color,
+                  return GestureDetector(
+                    onTap: () async {
+                      if (!await launchUrlString(
+                          'https://twitter.com/Rafael03418137')) {
+                        throw 'No se pudo abrir este link';
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.twitter,
+                            color: color,
+                          ),
                         ),
-                      ),
-                      CustomButton(
-                        text: 'GitHub',
-                        color: color,
-                        onPressed: () async {
-                          if (!await launchUrlString(
-                              'https://github.com/crpo10')) {
-                            throw 'No se pudo abrir este link';
-                          }
-                        },
-                      )
-                    ],
+                        Text(
+                          'Twitter',
+                          style: TextStyle(color: color),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),
               OnHover(
                 builder: (value) {
                   final color = value ? Colors.white : Colors.white70;
+                  // Cambiar estructura de boton, TODO debe lanzar la función
 
-                  return Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FaIcon(
-                          FontAwesomeIcons.linkedin,
-                          color: color,
+                  return GestureDetector(
+                    onTap: () async {
+                      if (!await launchUrlString('https://github.com/crpo10')) {
+                        throw 'No se pudo abrir este link';
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.github,
+                            color: color,
+                          ),
                         ),
-                      ),
-                      CustomButton(
-                        text: 'LinKedIn',
-                        color: color,
-                        onPressed: () {},
-                      )
-                    ],
+                        Text(
+                          'GitHub',
+                          style: TextStyle(color: color),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              OnHover(
+                builder: (value) {
+                  final color = value ? Colors.white : Colors.white70;
+                  // Cambiar estructura de boton, TODO debe lanzar la función
+
+                  return GestureDetector(
+                    onTap: () async {
+                      if (!await launchUrlString(
+                          'https://www.linkedin.com/in/rafael-g%C3%B3mez-m%C3%A1rquez-b52914133/')) {
+                        throw 'No se pudo abrir este link';
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.linkedin,
+                            color: color,
+                          ),
+                        ),
+                        Text(
+                          'LinkedIn',
+                          style: TextStyle(color: color),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

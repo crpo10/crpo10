@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webportfolio/src/providers/ui_provider.dart';
 
 import 'custom_button.dart';
@@ -68,11 +70,15 @@ class CustomNavbar extends StatelessWidget {
                   final color = value ? Colors.white : Colors.white70;
 
                   return CustomButton(
-                    text: 'CV',
-                    fontSize: 20,
-                    color: color,
-                    onPressed: () {},
-                  );
+                      text: 'CV',
+                      fontSize: 20,
+                      color: color,
+                      onPressed: () async {
+                        if (!await launchUrlString(
+                            'https://res.cloudinary.com/crpo20/image/upload/v1655394833/zubhrracel12njo1riue.pdf')) {
+                          throw 'No se pudo abrir este link';
+                        }
+                      });
                 },
               ),
             ],
