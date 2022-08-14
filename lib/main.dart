@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webportfolio/src/providers/ui_provider.dart';
 import 'package:webportfolio/src/routes/routes.dart';
+import 'package:webportfolio/src/services/email_services.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,6 +15,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => UiProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EmailServices(),
         )
       ],
       child: MaterialApp(

@@ -29,7 +29,8 @@ class Footer extends StatelessWidget {
                   final color = value ? Colors.white : Colors.white70;
 
                   return CustomButton(
-                    text: 'rafaeljose3020@gmail.com',
+                    text: 'A trabajar!',
+                    fontSize: 20,
                     color: color,
                     onPressed: () {
                       uiService.setPageSeleted = 2;
@@ -42,7 +43,7 @@ class Footer extends StatelessWidget {
                   final color = value ? Colors.white : Colors.white70;
                   // Cambiar estructura de boton, TODO debe lanzar la función
 
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () async {
                       if (!await launchUrlString(
                           'https://twitter.com/Rafael03418137')) {
@@ -72,7 +73,7 @@ class Footer extends StatelessWidget {
                   final color = value ? Colors.white : Colors.white70;
                   // Cambiar estructura de boton, TODO debe lanzar la función
 
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () async {
                       if (!await launchUrlString('https://github.com/crpo10')) {
                         throw 'No se pudo abrir este link';
@@ -101,7 +102,7 @@ class Footer extends StatelessWidget {
                   final color = value ? Colors.white : Colors.white70;
                   // Cambiar estructura de boton, TODO debe lanzar la función
 
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () async {
                       if (!await launchUrlString(
                           'https://www.linkedin.com/in/rafael-g%C3%B3mez-m%C3%A1rquez-b52914133/')) {

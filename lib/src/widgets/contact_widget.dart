@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:webportfolio/src/services/email_services.dart';
 import 'package:webportfolio/src/widgets/hover_widget.dart';
 import 'package:webportfolio/src/widgets/input_field.dart';
 
@@ -63,6 +65,7 @@ class _ContactFormState extends State<ContactForm> {
 
   @override
   Widget build(BuildContext context) {
+    final services = Provider.of<EmailServices>(context);
     return Column(
       children: [
         Padding(
@@ -94,31 +97,47 @@ class _ContactFormState extends State<ContactForm> {
             multiLine: true,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(35.0),
-          child: OnHover(
-            builder: (value) {
-              final color = value ? Colors.white : Colors.white70;
-              final double move = value ? 20 : 8;
+        // falta validar state
+        services.cargando
+            ? const CircularProgressIndicator(
+                color: Colors.white,
+              )
+            : Padding(
+                padding: const EdgeInsets.all(35.0),
+                child: OnHover(
+                  builder: (value) {
+                    final color = value ? Colors.white : Colors.white70;
+                    final double move = value ? 20 : 8;
 
-              return Row(
-                children: [
-                  Text(
-                    'Enviar',
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 25,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: move),
-                    child: const Icon(Icons.arrow_forward),
-                  )
-                ],
-              );
-            },
-          ),
-        )
+                    return GestureDetector(
+                      onTap: () {
+                        final Map data = {
+                          "email": emailCtrl.text.trim().toLowerCase(),
+                          "subject":
+                              '${nameCtrl.text.trim()} = ${subjectCtrl.text.trim()}',
+                          "body": msgCtrl.text.trim(),
+                        };
+                        services.sendEmail(data);
+                      },
+                      child: Row(
+                        children: [
+                          Text(
+                            'Enviar',
+                            style: TextStyle(
+                              color: color,
+                              fontSize: 25,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: move),
+                            child: const Icon(Icons.arrow_forward),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              )
       ],
     );
   }
